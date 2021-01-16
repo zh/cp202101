@@ -1,0 +1,15 @@
+config = {
+  port: process.env.PORT || 8000,
+  maxAge: 300,
+  appName: 'nft-api',
+  wallet: {
+    address:
+      process.env.APIADDR ||
+      'simpleledger:--- put you address here ---',
+    wif:
+      process.env.APIWIF ||
+      'Kw--- put you WIF here ---',
+  },
+};
+
+module.exports = config;
