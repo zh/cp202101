@@ -14,11 +14,11 @@ but because parts should be independent, the plans are to have independent repos
 
 ## REST backend
 
-Implemented using [koa.js web framework](https://koajs.com/). See [nft-rest repository](./nft-rest/README.md) for more information about the installation and usage.
+Implemented using [koa.js web framework](https://koajs.com/). See [nft-rest repository](./nft-rest/) for more information about the installation and usage.
 
 ## React Frontend
 
-Implemented using [react.js](https://reactjs.org/). See [nft-react repository](./nft-react/README.md) for more information about the installation and usage.
+Implemented using [react.js](https://reactjs.org/). See [nft-react repository](./nft-react/) for more information about the installation and usage.
 
 ## Used libraries and services
 

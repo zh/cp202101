@@ -16,6 +16,7 @@ git clone https://github.com/zh/cp202101.git
 cd cp202101/nft-rest
 yarn
 ```
+
 This will install all the dependencies.
 
 _TODO: create npm package_
@@ -30,7 +31,6 @@ _TODO: add create wallet API call_
 
 
 ### Starting the backend REST API
-
 
 ```sh
 yarn start
@@ -50,10 +50,10 @@ For testing the API, I ssuggest using great [HTTPie](https://httpie.io/) command
 
 On success or error the response is in the same format:
 
-```json
+```
 {
-    "code": ..,
-    "data": ...
+    "code": ...,
+    "data": ...,
     "name": "nft-api"
 ```
 
@@ -109,7 +109,7 @@ $ http localhost:8000/groups
         {...}
         ...
     ],
-    "name": "nft-api"   
+    "name": "nft-api"
 ```
 
 #### `GET /groups/:txid`
