@@ -1,4 +1,4 @@
-# Decentralized Membership Management
+# Easy BCH SLP-based NFTs
 
 CoinParty 2021/01 Project
 
