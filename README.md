@@ -30,3 +30,10 @@ Implemented using [react.js](https://reactjs.org/). See [nft-react repository](.
 ## Work progress
 
 Because of the short time of the hackatron, implementing all parts is very difficult, but I'm planing to continue working on the project even after the end of the hackatron.
+
+## Contacts
+
+* BCH: `bitcoincash:qq3t709lskk7tpg5nl8xdfvu8rx4v66ys5cwlxw3ac`
+* SLP: `simpleledger:qqpy2cwa2h9h4caqht9rpnm87e9rmc46ssxl4u3x7m`
+
+![SLP Address](./slp_address.jpg)
