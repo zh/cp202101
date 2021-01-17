@@ -4,7 +4,6 @@ REST API for easy working with SLP-based non-fungible tokens (NFT) on top of the
 
 The SLP NFT tokens on the BCH blockchain can be grouped together. There are NFT group tokens and NFT children tokens inside every group. More information can be found in the [NFT1 Specification](https://github.com/simpleledger/slp-specifications/blob/master/slp-nft-1.md) and also in this [YT video](https://www.youtube.com/watch?v=vvlpYUx6HRs).
 
-
 ## Usage
 
 ### Installation
@@ -28,7 +27,6 @@ Copy `config.js.sample` to `config.js` and enter your wallet SLP address and pri
 SLP address should be something as `simpleledger:qq......` and WIF is starting with `K...` or `L...`.
 
 _TODO: add create wallet API call_
-
 
 ### Starting the backend REST API
 
@@ -57,7 +55,7 @@ On success or error the response is in the same format:
     "name": "nft-api"
 ```
 
-Some of the calls, when cannot get information from the blockchain (invalid token *TXID* etc.) are just returning `204 No content` response
+Some of the calls, when cannot get information from the blockchain (invalid token _TXID_ etc.) are just returning `204 No content` response
 
 There are 3 main endpoints implemented:
 
@@ -70,7 +68,6 @@ APIADDR=simpleledger:... APIWIF=Kw... PORT=8080 yarn start
 ```
 
 #### `GET /wallet`
-
 
 ```sh
 $ http localhost:8000/wallet
@@ -137,11 +134,11 @@ $ http localhost:8080/groups/989847....
 
 Create new NFT group token in the current wallet. Parameters:
 
-* *name* - **(required)** name of the token, for example **Swords**
-* *ticker* - **(required)** short alias of the token, for example **SWD**
-* *uri* - **(optional)** URI of the documentation or attached meta data (IPFS hash etc.)
-* *hash* - **(optional)** Hash of the document, specified in the **uri* parameter
-* *quantity* - **(optional)** Intitial guantity of the token, **default = 1000**
+- _name_ - **(required)** name of the token, for example **Swords**
+- _ticker_ - **(required)** short alias of the token, for example **SWD**
+- _uri_ - **(optional)** URI of the documentation or attached meta data (IPFS hash etc.)
+- _hash_ - **(optional)** Hash of the document, specified in the \*_uri_ parameter
+- _quantity_ - **(optional)** Intitial guantity of the token, **default = 1000**
 
 > **!!! WARNING The way NFT tokens work on the BCH blockchain, in order to create children token, the group tokens need to be burn. Be sure to create group tokens with enough initial quantity.**
 
@@ -163,6 +160,31 @@ The result is the transaction ID of the [new created NFT group token](https://ex
 ### 3. `/tokens` endpoint
 
 For getting information about specific NFT token (group or child) and creating new children in a given group
+
+#### `GET /tokens/`
+
+Get all NFT tokens (groups and children) in the current wallet. NFT group tokens have `type=129` and every NFT child token have `type=65`.
+
+```sh
+http localhost:8000/tokens
+...
+{
+    "id": "989847ddc2541b7d0044ba7db5e1405cb074bd257fedd2f37adc6b860228fa5b",
+    "name": "SLPFAUCET NFT Group",
+    "quantity": "100",
+    "symbol": "SLPFAUCET_GROUP",
+    "type": 129
+},
+{
+    "id": "2ccbe0c0e44d81cb9bddfe9431faab4149a8c3c9e6d41a90bb562b7b7ec10dd3",
+    "name": "Remi Fujisawa",
+    "quantity": "1",
+    "symbol": "WAIFU",
+    "type": 65,
+    "uri": "https://waifufaucet.com"
+},
+...
+```
 
 #### `GET /tokens/:txid`
 
@@ -186,12 +208,12 @@ $ http localhost:8000/tokens/949c5360afc9beff4d9fa6631686bf305f34fff4d87ea2d3dbb
 
 Create a new child NFT token in a specified group. Parameters:
 
-* *group* - **(required)** Group NFT token TXID to creat the child token in
-* *name* - **(required)** name of the token, for example **Magic Sword**
-* *ticker* - **(required)** short alias of the token, for example **MAGIC**
-* *uri* - **(optional)** URI of the documentation or attached meta data (IPFS hash etc.)
-* *hash* - **(optional)** Hash of the document, specified in the **uri* parameter
-* *receiver* - **(optional)** SLP address to send the created child token
+- _group_ - **(required)** Group NFT token TXID to creat the child token in
+- _name_ - **(required)** name of the token, for example **Magic Sword**
+- _ticker_ - **(required)** short alias of the token, for example **MAGIC**
+- _uri_ - **(optional)** URI of the documentation or attached meta data (IPFS hash etc.)
+- _hash_ - **(optional)** Hash of the document, specified in the \*_uri_ parameter
+- _receiver_ - **(optional)** SLP address to send the created child token
 
 ```sh
 $ http POST localhost:8000/tokens name="SLP REST Child #1" ticker=SLPRC group=949c536... uri=http://github.com/
@@ -208,11 +230,11 @@ The result is the transaction ID of the [new created NFT child token](https://ex
 
 In the moment the server side is implemented as an individual user personal NFT generator. In order to be used as a service, some additions are required:
 
-* *security* - protect the important calls
-* *security* - rate limit the incoming requests
-* *performance* - distribute group tokens to several addresses to avoid waiting for tx confirmation
-* *performance* - optimize the way children NFT token are created - send `burn` and child `genesis` txs as a one.
-* *enhancement* - support also `testnet3`
-* *enhancement* - implement more calls in every endpoint - create wallet, change token quantity
- etc.
-* *development* - tests
+- _security_ - protect the important calls
+- _security_ - rate limit the incoming requests
+- _performance_ - distribute group tokens to several addresses to avoid waiting for tx confirmation
+- _performance_ - optimize the way children NFT token are created - send `burn` and child `genesis` txs as a one.
+- _enhancement_ - support also `testnet3`
+- _enhancement_ - implement more calls in every endpoint - create wallet, change token quantity
+  etc.
+- _development_ - tests

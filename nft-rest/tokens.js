@@ -7,6 +7,11 @@ const router = new Router({
   prefix: '/tokens',
 });
 
+router.get('/', async (ctx, next) => {
+  ctx.body = await utils.getNftList();
+  await next();
+});
+
 router.get('/:id', async (ctx, next) => {
   ctx.body = await utils.getTokenInfo(ctx.params.id);
   await next();

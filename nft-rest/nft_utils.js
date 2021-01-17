@@ -63,8 +63,14 @@ function group2obj(info) {
 }
 
 function child2obj(info) {
-  const { tokenIdHex: id, name, symbol } = info;
-  const obj = { id, name, symbol };
+  const {
+    tokenIdHex: id,
+    versionType: type,
+    name,
+    symbol,
+    genesisOrMintQuantity: quantity,
+  } = info;
+  const obj = { id, type, name, symbol, quantity };
   if (info.documentUri) obj.uri = info.documentUri;
   if (info.documentSha256) obj.hash = info.documentSha256;
   return obj;
@@ -165,6 +171,23 @@ class NftUtils {
       return result.g.map((token) => token.graphTxn.details.tokenIdHex);
     } catch (error) {
       console.error('error in utils.validTokens(): ', error);
+    }
+  }
+
+  async getNftList() {
+    try {
+      const allTokens = await this.getAllTokens();
+      const nftTokens = allTokens.filter(function (token) {
+        if (
+          [65, 129].includes(token.versionType) &&
+          token.transactionType === 'GENESIS'
+        )
+          return true;
+        return false;
+      });
+      return nftTokens.map((token) => child2obj(token));
+    } catch (error) {
+      console.error('error in utils.getGroupsList(): ', error);
     }
   }
 
