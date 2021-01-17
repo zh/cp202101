@@ -8,18 +8,22 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 
+const explorerUri = 'https://explorer.bitcoin.com/bch/tx/';
+
 function CardImage(token, size) {
   const waifuPrefix = 'https://icons.waifufaucet.com/original/';
-  // const ipfsPrefix = 'https://ipfs.io/ipfs/'
+  const ipfsPrefix = 'https://ipfs.io/ipfs/';
   if (token.symbol.toLowerCase() === 'waifu')
     return `${waifuPrefix}${token.id}.png`;
+  if (token.uri && token.uri.startsWith('Qm'))
+    return `${ipfsPrefix}${token.uri}`;
   let defaultImage = `https://via.placeholder.com/${size}`;
   if (token.type === 129) defaultImage += '/09f/fff.png?text=NFT+Group';
   return defaultImage;
 }
 
 const NftCard = (props) => {
-  const { token, size, nolinks } = props;
+  const { token, size, nolinks, onDetails } = props;
   const maxW = parseInt(size, 10) + 45;
   const height = nolinks && token.type !== 129 ? size : 150;
 
@@ -43,13 +47,28 @@ const NftCard = (props) => {
           <Typography color="textSecondary" variant="subtitle2">
             {token.symbol}
           </Typography>
+          {token.type === 129 && (
+            <Typography color="textSecondary" variant="subtitle2">
+              Quantity: {token.quantity}
+            </Typography>
+          )}
         </CardContent>
       </CardActionArea>
       {nolinks || (
         <CardActions>
-          <Button size="small" color="primary">
-            <Link to={`/view/${token.id}`}>More...</Link>
-          </Button>
+          <Link to={`/view/${token.id}`}>
+            <Button size="small" color="primary" onClick={onDetails}>
+              Details
+            </Button>
+          </Link>
+          <a
+            href={`${explorerUri}${token.id}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            download
+          >
+            Explorer
+          </a>
         </CardActions>
       )}
     </Card>

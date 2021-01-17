@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 import API from '../services/api.service';
 import NftCard from '../Components/NftCard';
 
@@ -20,6 +23,16 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
 }));
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    margin-left: 15px;
+  }
+`;
 
 const Viewer = (props) => {
   const txid = props.match.params.txid;
@@ -66,14 +79,23 @@ const Viewer = (props) => {
         <>
           <Grid item xs={12}>
             <Paper elevation={0} className={classes.paper}>
-              <button
-                onClick={() => {
-                  setReload(reload + 1);
-                }}
-              >
-                <i className="fa fa-refresh"></i>
-                &nbsp;Refresh
-              </button>
+              <ButtonWrapper>
+                <Button
+                  variant="outlined"
+                  size="large"
+                  onClick={() => {
+                    setReload(reload + 1);
+                  }}
+                >
+                  <i className="fa fa-refresh"></i>
+                  &nbsp;Refresh
+                </Button>
+                {token.type === 129 && (
+                  <Button variant="outlined" size="large">
+                    <Link to={`/create/${txid}`}>New Child</Link>
+                  </Button>
+                )}
+              </ButtonWrapper>
             </Paper>
           </Grid>
           <Grid container spacing={3}>
@@ -83,10 +105,17 @@ const Viewer = (props) => {
               </Paper>
             </Grid>
 
-            {children.length > 0 &&
+            {token.type === 129 &&
+              children.length > 0 &&
               children.map((child) => (
                 <Grid item xs={12} sm={4} key={child.id}>
-                  <NftCard token={child} size={200} />
+                  <NftCard
+                    token={child}
+                    size={200}
+                    onDetails={() => {
+                      setReload(reload + 1);
+                    }}
+                  />
                 </Grid>
               ))}
           </Grid>

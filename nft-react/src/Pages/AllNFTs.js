@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
@@ -44,14 +45,16 @@ const AllNFTs = () => {
         <>
           <Grid item xs={12}>
             <Paper elevation={0} className={classes.paper}>
-              <button
+              <Button
+                variant="outlined"
+                size="large"
                 onClick={() => {
                   setReload(reload + 1);
                 }}
               >
                 <i className="fa fa-refresh"></i>
                 &nbsp;Refresh
-              </button>
+              </Button>
             </Paper>
           </Grid>
           <Grid container spacing={3}>

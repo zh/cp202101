@@ -7,7 +7,7 @@ const Routes = () => {
     <Switch>
       <Route exact path="/" component={Pages.AllNFTs} />
       <Route path="/view/:txid" component={Pages.Viewer} />
-      <Route path="/create" component={Pages.Creator} />
+      <Route path="/create/:txid?" component={Pages.Creator} />
       <Route exact path="/groups" component={Pages.Groups} />
     </Switch>
   );
