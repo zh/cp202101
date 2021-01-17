@@ -54,23 +54,23 @@ const NftCard = (props) => {
           )}
         </CardContent>
       </CardActionArea>
-      {nolinks || (
-        <CardActions>
+      <CardActions>
+        {nolinks || (
           <Link to={`/view/${token.id}`}>
             <Button size="small" color="primary" onClick={onDetails}>
               Details
             </Button>
           </Link>
-          <a
-            href={`${explorerUri}${token.id}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            download
-          >
-            Explorer
-          </a>
-        </CardActions>
-      )}
+        )}
+        <a
+          href={`${explorerUri}${token.id}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          download
+        >
+          Explorer
+        </a>
+      </CardActions>
     </Card>
   );
 };
