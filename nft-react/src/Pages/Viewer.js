@@ -47,13 +47,12 @@ const Viewer = (props) => {
     (async () => {
       setLoading(true);
       const { data } = await API.getTokenInfo(txid);
+      setLoading(false);
       if (!data || !data.code || data.code !== 200) return;
       setToken(data.data);
       // not a group
-      if (data.data.type !== 129) {
-        setLoading(false);
-        return;
-      }
+      if (data.data.type !== 129) return;
+      setLoading(true);
       const { data: nextData } = await API.getTokensInGroup(txid);
       setLoading(false);
       if (

@@ -27,6 +27,8 @@ const NftCard = (props) => {
   const maxW = parseInt(size, 10) + 45;
   const height = nolinks && token.type !== 129 ? size : 150;
 
+  if (!token || !token.id) return <div>No such token in the wallet.</div>;
+
   return (
     <Card
       style={{
@@ -55,7 +57,9 @@ const NftCard = (props) => {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        {nolinks || (
+        {nolinks ? (
+          <></>
+        ) : (
           <Link to={`/view/${token.id}`}>
             <Button size="small" color="primary" onClick={onDetails}>
               Details
